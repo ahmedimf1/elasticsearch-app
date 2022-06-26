@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import SearchBox from "./components/SearchBox";
+import ZipList from "./components/ZipList";
+import "./App.css";
+import axios from "axios";
 
 function App() {
+  const [queryText, setQueryText] = useState("");
+  const [zips, setZips] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3030/elastic?text=${queryText}`)
+      .then((result) => {
+        const { records } = result.data;
+        const tempZips = records.map((record) => {
+          return { id: record.id, city: record.city, state: record.state };
+        });
+        setZips(tempZips);
+      });
+  }, [queryText]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SearchBox
+        placeholder="Search Elasticsearch"
+        setQueryText={setQueryText}
+      />
+      <ZipList zips={zips} />
     </div>
   );
 }
