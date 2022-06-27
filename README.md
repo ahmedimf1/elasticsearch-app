@@ -11,8 +11,6 @@ The project provides a search engine to find US zip codes by utilizing ElasticSe
 
 ### Download and Run Kibana in a Docker container
 
-`docker network create elastic`
-
 `docker pull docker.elastic.co/kibana/kibana:7.15.2`
 
 `docker run --name kib01-test --net elastic -p 127.0.0.1:5601:5601 -e "ELASTICSEARCH_HOSTS=http://es01-test:9200" docker.elastic.co/kibana/kibana:7.15.2`
