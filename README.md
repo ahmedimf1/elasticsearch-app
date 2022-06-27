@@ -1,3 +1,6 @@
+# US Zip codes search engine
+The project provides a search engine to find US zip codes by utilizing ElasticSearch full-text search capabilities, Kibana visualisations. React serves the page on the localhost.
+
 ### Download and Run ElasticSearch in a Docker container
 
 `docker network create elastic`
